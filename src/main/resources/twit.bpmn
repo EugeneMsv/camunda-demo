@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0yjrlrn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.3.5">
-  <bpmn:process id="twitProcess" name="twit-process" isExecutable="true" camunda:versionTag="1.0">
+  <bpmn:process id="twitProcess" name="twit-process" isExecutable="true" camunda:versionTag="2.0">
     <bpmn:startEvent id="StartEvent_1" camunda:formKey="embedded:app:forms/create-twit.html">
       <bpmn:outgoing>SequenceFlow_1h23fqm</bpmn:outgoing>
     </bpmn:startEvent>
@@ -25,6 +25,7 @@
     </bpmn:sequenceFlow>
     <bpmn:userTask id="approvementTask" name="Twit content approvement" camunda:formKey="embedded:app:forms/content-approvement.html" camunda:assignee="${assignee}">
       <bpmn:incoming>SequenceFlow_0bjjhx1</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0mkv1ez</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0l9i0h3</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="EndEvent_0dg3w74">
@@ -56,6 +57,11 @@
       <bpmn:incoming>SequenceFlow_1xldd4g</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0g7m8is</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:boundaryEvent id="BoundaryEvent_0gzbbfy" attachedToRef="Task_1dfi7dp">
+      <bpmn:outgoing>SequenceFlow_0mkv1ez</bpmn:outgoing>
+      <bpmn:errorEventDefinition />
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0mkv1ez" sourceRef="BoundaryEvent_0gzbbfy" targetRef="approvementTask" />
   </bpmn:process>
   <bpmn:message id="Message_0f9fzj4" name="EVENT_NOTIFICATION_CONFIRMED" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -133,6 +139,15 @@
       <bpmndi:BPMNShape id="UserTask_17v0mqv_di" bpmnElement="lastCheckTask">
         <dc:Bounds x="1330" y="200" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BoundaryEvent_0lenevk_di" bpmnElement="BoundaryEvent_0gzbbfy">
+        <dc:Bounds x="1092" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0mkv1ez_di" bpmnElement="SequenceFlow_0mkv1ez">
+        <di:waypoint x="1110" y="398" />
+        <di:waypoint x="1110" y="418" />
+        <di:waypoint x="620" y="418" />
+        <di:waypoint x="620" y="267" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

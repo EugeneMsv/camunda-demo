@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "ad8b95c3-943c-4168-a1e0-cf6b8eea2b44",
+		"name": "Camunda-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get process definitions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e558543b-d60f-4c0a-979d-437f794cba32",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"process-definiton-id\", jsonData[0].id);\r",
+							"postman.setEnvironmentVariable(\"process-definiton-key\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/rest/process-definition",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"process-definition"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start process instance by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d86ea081-d834-4fff-b42a-bf018b9a6b07",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"process-instance-id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"variables\": {\r\n    \"email\" : {\r\n        \"value\" : \"fakeUser@email.com\",\r\n        \"type\": \"String\"\r\n    },\r\n    \"content\" : {\r\n      \"value\" : \"it is sensational news\",\r\n      \"type\": \"String\"\r\n    }\r\n  },\r\n \"businessKey\" : \"started by id\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rest/process-definition/{{process-definiton-id}}/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"process-definition",
+						"{{process-definiton-id}}",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start process instance by key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6f94f8c-7a51-48b6-a254-f0dce862d49b",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"process-instance-id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\"variables\": {\r\n    \"email\" : {\r\n        \"value\" : \"fakeUser@email.com\",\r\n        \"type\": \"String\"\r\n    },\r\n    \"content\" : {\r\n      \"value\" : \"it is sensational news\",\r\n      \"type\": \"String\"\r\n    }\r\n  },\r\n \"businessKey\" : \"started by key\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rest/process-definition/key/{{process-definiton-key}}/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"process-definition",
+						"key",
+						"{{process-definiton-key}}",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process instance get variables",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/rest/process-instance/{{process-instance-id}}/variables",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"process-instance",
+						"{{process-instance-id}}",
+						"variables"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process instance Get Activity Instance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/rest/process-instance/{{process-instance-id}}/activity-instances",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"process-instance",
+						"{{process-instance-id}}",
+						"activity-instances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process instance Get current task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a57d33f2-e441-40c1-93e7-4329c4f305e3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"task-id\", jsonData[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/rest/task?processInstanceId={{process-instance-id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"task"
+					],
+					"query": [
+						{
+							"key": "processInstanceId",
+							"value": "{{process-instance-id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "complete task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\r\n    {\"approved\":\r\n    {\"value\": false},\r\n    \r\n    \"comments\": \r\n    {\"value\": \"need to rewrite\"},\r\n    \r\n    \"source\": {\"value\": \"postman\" } },\r\n \"withVariablesInReturn\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rest/task/{{task-id}}/complete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"task",
+						"{{task-id}}",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process instance task history",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/rest/history/task?processInstanceId={{process-instance-id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"history",
+						"task"
+					],
+					"query": [
+						{
+							"key": "processInstanceId",
+							"value": "{{process-instance-id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "process instance trigger message",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"messageName\" : \"EVENT_NOTIFICATION_CONFIRMED\",\r\n  \"businessKey\" : \"started by key\",\r\n  \"processVariables\" : {\r\n    \"messageSource\" : \r\n    {\r\n    \t\"value\" : \"hi from postman\", \r\n    \t\"type\": \"String\"\r\n    }\r\n                    \r\n  }\r\n\t\r\n}\r\n  "
+				},
+				"url": {
+					"raw": "http://localhost:8090/rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
