@@ -22,13 +22,13 @@ class CamundaEventListener {
     @EventListener
     public void onExecutionEvent(DelegateExecution executionDelegate) {
         // handle execution event
-        logger.info("Catch execution event ={}", executionDelegate);
+//        logger.info("Catch execution event ={}", executionDelegate);
     }
 
     @EventListener
     public void onHistoryEvent(HistoryEvent historyEvent) {
         // handle history event
-        logger.info("Catch history event ={}", historyEvent);
+//        logger.info("Catch history event ={}", historyEvent);
     }
 
 }
