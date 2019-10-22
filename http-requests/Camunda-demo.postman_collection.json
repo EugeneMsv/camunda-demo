@@ -6,6 +6,91 @@
 	},
 	"item": [
 		{
+			"name": "dmn",
+			"item": [
+				{
+					"name": "make dish decision",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e558543b-d60f-4c0a-979d-437f794cba32",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"process-definiton-id\", jsonData[0].id);\r",
+									"postman.setEnvironmentVariable(\"process-definiton-key\", jsonData[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/rest/process-definition",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"rest",
+								"process-definition"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "make beverages decision",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e558543b-d60f-4c0a-979d-437f794cba32",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"variables\" : {\r\n  \t  \"season\" : { \"value\" : \"Spring\", \"type\" : \"String\" },\r\n    \"guestCount\" : { \"value\" : \"10\", \"type\" : \"Integer\" },\r\n    \"guestsWithChildren\" : { \"value\" : false, \"type\" : \"Boolean\" }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8090/rest/decision-definition/key/beverages/evaluate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"rest",
+								"decision-definition",
+								"key",
+								"beverages",
+								"evaluate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "get process definitions",
 			"event": [
 				{
